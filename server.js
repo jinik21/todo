@@ -13,11 +13,13 @@ app.use(cors());
 
 const mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
-mongoose.connect(process.env.DB_CONNECT || "mongodb+srv://nik:nikheel@cluster0.enx00.mongodb.net/<dbname>?retryWrites=true&w=majority", { useNewUrlParser: true }, () => {
+mongoose.connect("mongodb+srv://nik:nikheel@cluster0.enx00.mongodb.net/<dbname>?retryWrites=true&w=majority", { useNewUrlParser: true }, () => {
 console.log("Connected to db!")});
 
-tasks=['headline','abdhv','asjhdj'];
-app.get('/',(req,resp)=>{TodoTask.find({}, (err, tasks) => {resp.render("todo.ejs", { todoTasks: tasks });});});
+
+app.get('/',(req,resp)=>{TodoTask.find({}, (err, tasks) => {
+    console.log(tasks);
+    resp.render("todo.ejs", { todoTasks: tasks });});});
 
 
 app.post('/',async (req, res) => {
